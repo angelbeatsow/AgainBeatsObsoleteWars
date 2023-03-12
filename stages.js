@@ -130,7 +130,7 @@ const stages = [
     {
       'name':'Lv3:手当て',
       'number':4,
-      'info':'回復エレメントPow1倍回復。',
+      'info':'ハートエレメントPow1倍回復。',
       'lv'  :1,  //needlv/3
       'need':['pink',3],
       'func':function(elementstate){
@@ -141,7 +141,7 @@ const stages = [
     {
       'name': 'Lv6:身を守る',
       'number':5,
-      'info': 'このターンに受けるダメージを、回復エレメントPow%軽減させる。',
+      'info': 'このターンに受けるダメージを、ハートエレメントPow%軽減させる。',
       'lv': 2, //needlv/3
       'need': ['pink', 6],
       'func': function(elementstate) {
@@ -172,7 +172,7 @@ const stages = [
       }
     },
     {
-      'name': 'Lv12:突進',
+      'name': 'Lv12:奇襲',
       'number':8,
       'info': '敵単体への、赤エレメントPow1.5倍物理攻撃。',
       'lv': 4, //needlv/3
