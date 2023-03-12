@@ -969,6 +969,7 @@ const puzzlescene = (stagenum)=>{
                         scene.nokorienemy = scene.nowenemy.length;
                         setEnemyimg();
                         scene.nowflag = 1;
+                        scene.elementstate.syokika();
                         scene.banmenussura[0].hidden = true;
                         scene.tyutoriaruobjs[0].text = 'パズル画面の、隣り合うブロックをなぞって消していきましょう。'
                     
