@@ -699,10 +699,16 @@ const puzzlescene = (stagenum)=>{
       //能力加算の経過ターンを反映
       for(let playerpluslength = 0;playerpluslength < scene.playerPlus.length;playerpluslength++){
         if(scene.playerPlus[playerpluslength][1] > 0)scene.playerPlus[playerpluslength][1]--;
+        
+        
       }
       
       //相手のターン
       setTimeout(()=>{
+        //残りの敵がいるなら、エレメント情報を更新。
+        if(scene.nokorienemy > 0){
+          scene.elementstate.syokika();
+        }
         
         for(let num=0;num<scene.nowenemy.length;num++){
           if(scene.nowenemy[num]['hp'] <= 0)continue;
@@ -760,7 +766,7 @@ const puzzlescene = (stagenum)=>{
         }
       
         if(scene.nokorienemy > 0){
-          scene.elementstate.syokika();
+          
           scene.nowflag = 1;
           scene.banmenussura[0].hidden = true;
           scene.tyutoriaruobjs[0].text = 'パズル画面の、隣り合うブロックをなぞって消していきましょう。(ななめ可)'
