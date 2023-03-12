@@ -129,7 +129,7 @@ class Animationtile extends Sprite{
 
 class EnemyImg extends Sprite{
   constructor(enemynum,nantaime){
-    let imgpass = '/enemyimg/enemy' + enemynum + '.png';
+    let imgpass = './enemyimg/enemy' + enemynum + '.png';
     //imgpass = '/enemyimg/enemy0.png';
     super(imgpass)
     this.width = 40;
