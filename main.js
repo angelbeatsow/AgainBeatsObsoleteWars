@@ -287,6 +287,7 @@ window.onload= function(){
             let elenum = game.player.settingElements[scene.elementpage][n];
             const _text = new Text(actions[elenum].name,32*2 +6,32*(2+n) +6,20);
             if(actions[elenum].need[0] != 0)_text.color = actions[elenum].need[0];
+            
             _text.touchevent = ()=>{
               if(_text.isTouched(game.touch)[1] == true && game.touch.touchtype == 'touchstart'){
                 scene.elementinfotext[0].text = actions[elenum].info;
@@ -295,6 +296,7 @@ window.onload= function(){
                   _text.text = actions[scene.selectedelement].name;
                   if(actions[scene.selectedelement].need[0] == 0)_text.color = 'white';
                   else _text.color = actions[scene.selectedelement].need[0];
+                  elementPageSet();
                 }
               }
             }
