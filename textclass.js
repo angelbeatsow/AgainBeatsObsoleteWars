@@ -31,19 +31,19 @@ class Text{
   }
   
   update(canvas){
-    if(this.hidden || this.tenmetu == 4)return;
+    if(this.hidden || this.tenmetu == 2)return;
     if(this.tenmetu == 1){
       this.tenmetu = 2;
       setTimeout( ()=>{
         if(this.tenmetu !=0)this.tenmetu = 3;
-      },1000 / (3/2));
+      },1000 / 5);
     }
     if (this.tenmetu == 3) {
       this.tenmetu = 4;
       setTimeout(() => {
         if(this.tenmetu != 0)this.tenmetu = 1;
-      }, 1000 / 5);
-      return;
+      }, 1000 / (3/2));
+      
     }
     
     const _ctx = canvas.getContext('2d');
