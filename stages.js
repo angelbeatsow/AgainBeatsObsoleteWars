@@ -83,7 +83,7 @@ const stages = [
                  [reEnemy(2, 1), reEnemy(2, 1)],
                  [reEnemy(0, 4)],
                  [reEnemy(1,2),reEnemy(0,2),reEnemy(0,2)],
-                 [reEnemy(1,1),reEnemy(1,1),reEnemy(1,1),reEnemy(1,1),reenemy(1,1)],
+                 [reEnemy(1,1),reEnemy(1,1),reEnemy(1,1),reEnemy(1,1),reEnemy(1,1)],
                  [reEnemy(2,6)]
                 ]
   }
