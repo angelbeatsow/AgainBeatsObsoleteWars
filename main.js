@@ -277,9 +277,11 @@ window.onload= function(){
       scene.elementinfotext.push(infotxt);
       
       
-      function elementPageSet(){
+      function elementPageSet(infoelenum = 'unko'){
         scene.elementobjs = [];
         scene.elementsettingobjs = [];
+        
+        if(infoelenum != 'unko')scene.elementinfotext[0].text = actions[infoelenum].info;
         
         if(game.player.maxSetableAtElementLv[scene.elementpage]){
           for(let n=0;n<game.player.maxSetableAtElementLv[scene.elementpage];n++){
@@ -296,7 +298,8 @@ window.onload= function(){
                   _text.text = actions[scene.selectedelement].name;
                   if(actions[scene.selectedelement].need[0] == 0)_text.color = 'white';
                   else _text.color = actions[scene.selectedelement].need[0];
-                  elementPageSet();
+                  elementPageSet(scene.selectedelement);
+                  
                 }
               }
             }
