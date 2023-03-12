@@ -208,8 +208,8 @@ const stages = [
         'mpow':0,
         'hpow':0,
         'actions':[
-                   [6,3,2],  //[覚えるaction,覚えられるjoblv,エレメントレベル = needlv/3]
-                   [7,6,3],
+                   [6,3,3],  //[覚えるaction,覚えられるjoblv,エレメントレベル = needlv/3]
+                   [7,6,1],
                    [8,9,4]
                   ]
         
