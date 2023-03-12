@@ -32,3 +32,12 @@ window.addEventListener("DOMContentLoaded", viewportSet, false);
 window.addEventListener("resize", viewportSet, false);
 window.addEventListener("orientationchange", viewportSet, false);
 
+
+
+  // スクロール禁止
+  function disableScroll(event) {
+    event.preventDefault();
+  }
+  window.addEventListener('touchmove', disableScroll, { passive: false });
+    
+  
