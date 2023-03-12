@@ -711,11 +711,8 @@ const puzzlescene = (stagenum)=>{
       //相手のターン
       setTimeout(()=>{
         //エレメント情報を更新。
-        if(scene.nokorienemy >0){
-          scene.elementstate.syokika();
-        }else{
-          scene.elementstate.update();
-        }
+        scene.elementstate.update();
+        
         
         for(let num=0;num<scene.nowenemy.length;num++){
           if(scene.nowenemy[num]['hp'] <= 0)continue;
@@ -773,7 +770,7 @@ const puzzlescene = (stagenum)=>{
         }
       
         if(scene.nokorienemy > 0){
-          
+          scene.elementstate.syokika();
           scene.nowflag = 1;
           scene.banmenussura[0].hidden = true;
           scene.tyutoriaruobjs[0].text = 'パズル画面の、隣り合うブロックをなぞって消していきましょう。(ななめ可)'
