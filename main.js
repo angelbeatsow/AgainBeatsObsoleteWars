@@ -510,6 +510,11 @@ const puzzlescene = (stagenum)=>{
   scene.playermaxhp   = scene.player.hp;
   
   
+  var banmenussura = new Line(32*5-16,32*7,32*5-16,32*13,'black',32*7);
+  banmenussura.globalAlpha = 0.8;
+  banmenussura.hidden = true;
+  scene.banmenussura.push( banmenussura );
+  
     //logpagechangeobjs
     const logMainasu = new Text('▲', 32 * 16, 32 + 20 * 9 - 10, 16);
     logMainasu.hidden = true;
@@ -745,6 +750,8 @@ const puzzlescene = (stagenum)=>{
         //tilemapのanimationsを空にする
         scene.objs[0].animations = [];
         
+        scene.banmenussura[0].hidden = false;
+        
         if(scene.playerx.hp ==0){
           //やられた
           scene.playerx.hp = scene.playermaxhp;
@@ -830,10 +837,6 @@ const puzzlescene = (stagenum)=>{
   let nowwave = new Text('1',32+6,32+6,20);
   nowwave.color = 'black';
   scene.wavetext.push(nowwave);
-  var banmenussura = new Line(32*5-16,32*7,32*5-16,32*13,'black',32*7);
-  banmenussura.globalAlpha = 0.8;
-  banmenussura.hidden = true;
-  scene.banmenussura.push( banmenussura );
   scene.add( new Line(32,32*7 -5,32*8,32*7 -5,'gray',10) );
   scene.add( new Line(32,32*7 -16,32*8,32*7 -16,'gray',10) );
   scene.timer.push( new Line(32,32*7 -5,32*8,32*7 -5,'red',5) );  //width = 32*7
@@ -992,10 +995,9 @@ const puzzlescene = (stagenum)=>{
   
   
   scene.onenterframe = function(){
-    this.shuffleMessage.update(canvas);
+    //this.shuffleMessage.update(canvas);
 
-    if (this.nowflag == 1 || this.nowflag == 2) this.banmenussura[0].hidden = true;
-    else this.banmenussura[0].hidden = false;
+    
     
 
   }
@@ -1056,6 +1058,7 @@ const puzzlescene = (stagenum)=>{
               this.nowflag = 3;
               clearInterval(timerinterval);
               this.timer[0].endx = 32*8;
+              this.banmenussura[0].hidden = true;
               
               
                 scene.tyutoriaruobjs[0].text = '右下から行動を選択し、そのあと敵を選択しましょう。' //1周目
