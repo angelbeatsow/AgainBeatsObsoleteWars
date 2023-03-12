@@ -119,13 +119,18 @@ class Animationtile extends Sprite{
         this.height);
         if(this.isSettingSetinterval == false){
           this.isSettingSetinterval = true;
-          setInterval(()=>{
-            this.animation++;},500/this.animationmax); //0.5秒で終わらせる
+          const interval = setInterval(()=>{
+            this.animation++;
+            if(this.animation > this.animationmax){
+              this.hidden = true;
+              cancelInterval(interval);
+            }
+          },500/this.animationmax); //0.5秒で終わらせる
         }
-        if(this.animation > this.animationmax){this.hidden = true;}
-  }
+        
+    }
   
-}
+
 
 class EnemyImg extends Sprite{
   constructor(enemynum,nantaime){
