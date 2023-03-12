@@ -1125,7 +1125,7 @@ const puzzlescene = (stagenum)=>{
                 //tile_sizeの辺を3/4にした正方形の範囲をタッチすると、
                 //座標を取得する。(一番左上を(1,1)とする。)
                 
-                if(jouhou[0] == 'touchstart'){
+                if(game.touch.touchtype == 'touchstart'){
                 //touchstart用。
           　　    let thisxzahyou = Math.floor(game.touch.x / tile_size);
                 let thisyzahyou = Math.floor(game.touch.y / tile_size);
@@ -1137,7 +1137,7 @@ const puzzlescene = (stagenum)=>{
                   this.nowpoint = jouhou;
                  }
               
-              if(jouhou[0] == 'touchmove'){
+              if(game.touch.touchtype == 'touchmove'){
               //touchmove用。
               let thisxzahyou = Math.floor(game.touch.x / tile_size);
               let thisyzahyou = Math.floor(game.touch.y / tile_size);
