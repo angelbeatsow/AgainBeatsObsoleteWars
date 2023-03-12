@@ -1,10 +1,3 @@
-//追加したいもの
-//isTyutoriaru == trueのときのtextを書く　完了
-//Tyutoriaru用のTextクラス　完了
-//puzzlesceneでのログの表示　完了
-//puzzlesceneの背景画像
-//puzzlesceneの、階層制覇時に回復エレメントを使えるようにする。 完了
-//timer[1] hpバーの実装
 
 const canvas_width  = 640;
 const canvas_height = 450;
@@ -822,7 +815,7 @@ const puzzlescene = (stagenum)=>{
   let enemygamen = new Rect(32*5 - 16 - 32*7/2,32,32*7,32*6,true); //下のenemygamenspriteと被っていますが、isTouched()を使うので必要です。
   enemygamen.color = 'white';
   scene.add(enemygamen);//←隠れてる盤面を見たいならコメントアウト
-  let enemygamensprite = new Sprite('/backgroundimg/background' + _stagenum + '.png',32,32); 
+  let enemygamensprite = new Sprite('./backgroundimg/background' + _stagenum + '.png',32,32); 
   scene.add(enemygamensprite);//←隠れてる盤面を見たいならコメントアウト
   //let back = new Rect(32*5-16-32*7/2,32*2,32*7,32*3 + 15,true);  //背景画像挿入目安用
   //back.color = 'black';
