@@ -762,7 +762,7 @@ const puzzlescene = (stagenum)=>{
         if(scene.nokorienemy > 0){
           scene.elementstate.syokika();
           scene.nowflag = 1;
-          scene.banmenussura[0].hidden = false;
+          scene.banmenussura[0].hidden = true;
           scene.tyutoriaruobjs[0].text = 'パズル画面の、隣り合うブロックをなぞって消していきましょう。(ななめ可)'
           
         }else{ //階層の敵をすべて倒した
@@ -958,7 +958,7 @@ const puzzlescene = (stagenum)=>{
                         scene.nokorienemy = scene.nowenemy.length;
                         setEnemyimg();
                         scene.nowflag = 1;
-                        scene.banmenussura[0].hidden = false;
+                        scene.banmenussura[0].hidden = true;
                         scene.tyutoriaruobjs[0].text = 'パズル画面の、隣り合うブロックをなぞって消していきましょう。'
                     
                     }
