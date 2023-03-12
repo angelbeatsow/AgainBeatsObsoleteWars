@@ -750,7 +750,7 @@ const puzzlescene = (stagenum)=>{
         //tilemapのanimationsを空にする
         scene.objs[0].animations = [];
         
-        scene.banmenussura[0].hidden = false;
+        scene.banmenussura[0].hidden = true;
         
         if(scene.playerx.hp ==0){
           //やられた
@@ -1058,7 +1058,7 @@ const puzzlescene = (stagenum)=>{
               this.nowflag = 3;
               clearInterval(timerinterval);
               this.timer[0].endx = 32*8;
-              this.banmenussura[0].hidden = true;
+              this.banmenussura[0].hidden = false;
               
               
                 scene.tyutoriaruobjs[0].text = '右下から行動を選択し、そのあと敵を選択しましょう。' //1周目
