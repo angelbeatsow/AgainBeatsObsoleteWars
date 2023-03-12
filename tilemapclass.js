@@ -38,7 +38,7 @@ class Tilemap {
       this._deleatingzahyous.push(txt);
       
       
-      this.add(new Animationtile('disappearAnimation.png',selx-1,sely-1,4));
+     // this.add(new Animationtile('disappearAnimation.png',selx-1,sely-1,4)); //アニメーション。重くなるためコメントアウト。
       for(let y2 = sely-1; y2>0;y2--){
         this.falldata[ y2 -1 ][ selx -1 ] ++;
       }
