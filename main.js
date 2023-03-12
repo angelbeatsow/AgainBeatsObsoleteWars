@@ -1121,24 +1121,20 @@ const puzzlescene = (stagenum)=>{
                 game.touch.y < (tile_size * 7/8) + tile_size * yzahyou + tile_size) {
                 //tile_sizeの辺を3/4にした正方形の範囲をタッチすると、
                 //座標を取得する。(一番左上を(1,1)とする。)
+                
+                if(jouhou[0] == 'touchstart'){
                 //touchstart用。
           　　    let thisxzahyou = Math.floor(game.touch.x / tile_size);
                 let thisyzahyou = Math.floor(game.touch.y / tile_size);
 
                 let jouhou = [game.touch.touchtype,color[ this.objs[0].data[thisyzahyou - 1][thisxzahyou - 1] ],thisxzahyou,thisyzahyou];
                 
-                if(jouhou[0] == 'touchstart'){
+                
                   this.lastpoint = jouhou;
                   this.nowpoint = jouhou;
                  }
-              }
-            
-            if (game.touch.x > (tile_size / 8) + tile_size * xzahyou + tile_size &&
-              game.touch.x < (tile_size * 7 / 8) + tile_size * xzahyou + tile_size &&
-              game.touch.y > (tile_size / 8) + tile_size * yzahyou + tile_size &&
-              game.touch.y < (tile_size * 7 / 8) + tile_size * yzahyou + tile_size) {
-              //tile_sizeの辺を3/4にした正方形の範囲をタッチすると、
-              //座標を取得する。(一番左上を(1,1)とする。)
+              
+              if(jouhou[0] == 'touchmove'){
               //touchmove用。
               let thisxzahyou = Math.floor(game.touch.x / tile_size);
               let thisyzahyou = Math.floor(game.touch.y / tile_size);
@@ -1186,9 +1182,7 @@ const puzzlescene = (stagenum)=>{
                      
                 }
                 
-                if(jouhou[0] == 'touchend'){
-                  
-                }
+                
                 
               }
               
