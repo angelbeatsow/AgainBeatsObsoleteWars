@@ -1196,7 +1196,7 @@ const puzzlescene = (stagenum)=>{
       
       
       
-    
+    }}
   
     
     
