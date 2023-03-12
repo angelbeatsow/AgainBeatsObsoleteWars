@@ -710,9 +710,11 @@ const puzzlescene = (stagenum)=>{
       
       //相手のターン
       setTimeout(()=>{
-        //残りの敵がいるなら、エレメント情報を更新。
-        if(scene.nokorienemy > 0){
+        //エレメント情報を更新。
+        if(scene.nokorienemy >0){
           scene.elementstate.syokika();
+        }else{
+          scene.elementstate.update();
         }
         
         for(let num=0;num<scene.nowenemy.length;num++){
