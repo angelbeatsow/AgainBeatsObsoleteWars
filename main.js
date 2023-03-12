@@ -742,6 +742,9 @@ const puzzlescene = (stagenum)=>{
       },myturnTime );
     
       setTimeout(()=>{
+        //tilemapのanimationsを空にする
+        scene.objs[0].animations = [];
+        
         if(scene.playerx.hp ==0){
           //やられた
           scene.playerx.hp = scene.playermaxhp;
