@@ -29,6 +29,14 @@ window.onload= function(){
     scene.add( new Rect(32*8,32*3 +22,32*4,32));
     scene.add( new Rect(32*8,32*6 +22,32*4,32));
     
+    scene.add( new Sprite('red.png',32*13,32));
+    scene.add( new Sprite('blue.png',32*14,32));
+    scene.add( new Sprite('green.png',32*15,32));
+    scene.add( new Sprite('purple.png',32*16,32));
+    scene.add( new Sprite('yellow.png',32*17,32));
+    scene.add( new Sprite('pink.png',32*18,32));
+    
+    
     scene.touchevent=()=>{
       if(game.touch.touchtype =='touchstart' &&
          hajimekara.isTouched(game.touch)[1] == true &&
