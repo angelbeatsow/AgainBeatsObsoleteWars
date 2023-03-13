@@ -101,7 +101,9 @@ class Animationtile extends Sprite{
     this.width = this.height = 32;
     this.animation = 0;
     this.animationmax = animationmax;
-    this.isSettingSetinterval = false;
+    
+    this.frame = 0;
+    this.framerate = 10;
   }
   
   render(canvas){
@@ -117,16 +119,17 @@ class Animationtile extends Sprite{
         this.y,
         this.width,
         this.height);
-    if(this.isSettingSetinterval == false){
-        this.isSettingSetinterval = true;
-        const interval = setInterval(()=>{
+    this.frame++;
+    if(this.frame % this.framerate == 0){
             this.animation++;
-            if(this.animation > this.animationmax){
-              this.hidden = true;
-              cancelInterval(interval);
-            }
-        },500/this.animationmax); //0.5秒で終わらせる
     }
+    if(this.animation > this.animationmax){
+              this.hidden = true;
+              
+    }
+    
+            
+    
  } 
 }
 class EnemyImg extends Sprite{
