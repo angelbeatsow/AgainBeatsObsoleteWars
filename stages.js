@@ -103,7 +103,7 @@ const stages = [
     {
       'name':'攻撃',
       'number':1,
-      'info':'敵単体への、回復を除く全エレメントPowの平均物理攻撃。',
+      'info':'敵単体への、ハートを除く全エレメントPowの平均物理攻撃。',
       'lv'  :0,
       'need':[0,0], //[color,消費lv]
       'func':function(elementstate){
