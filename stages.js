@@ -182,9 +182,46 @@ const stages = [
         return ['ダメージ', pow, '単体', '物理', '無'];
       }
     },
+    {
+      'name': 'Lv6:警戒の構え',
+      'number': 9,
+      'info': '敵単体への、緑エレメントPow1倍物理攻撃(緑属性)。ブロックをランダムに3つ、ハートに変化させる。',
+      'lv': 2, //needlv/3
+      'need': ['green', 6],
+      'func': function(elementstate) {
+        let pow = elementstate['green'][1] ;
+        return ['ダメージ', pow, '単体', '物理', 'green'];
+      },
+      'change':['pink',3]
+    },
+    {
+      'name': 'Lv9:ヒール',
+      'number': 10,
+      'info': '緑エレメントPow1.5倍回復。',
+      'lv': 3, //needlv/3
+      'need': ['green', 9],
+      'func': function(elementstate) {
+        let pow = elementstate['green'][1] * 3/2;
+        return ['回復', pow];
+      }
+    },
+    {
+      'name': 'Lv12:受け身の構え',
+      'number': 11,
+      'info': 'このターンに受けるダメージを、緑エレメントPow1,5倍%軽減させる。ブロックをランダムに5つ、ハートに変化させる。',
+      'lv': 4, //needlv/3
+      'need': ['green', 12],
+      'func': function(elementstate) {
+        let pow = elementstate['green'][1] * 3/2;
+        return ['軽減', pow];
+      },
+      'change':['pink',5]
+    },
     
     
     ];
+    
+    
     
     const jobs = [
       {
@@ -213,5 +250,22 @@ const stages = [
                    [8,9,4]
                   ]
         
+      },
+      {
+        'name': '治療師',
+        'need': [0],
+        'hp': 4,
+        'pow': 2,
+        'mpow': 1,
+        'hpow': 3,
+        'actions': [
+                   [9, 3, 2], //[覚えるaction,覚えられるjoblv,エレメントレベル = needlv/3]
+                   [10, 6, 3],
+                   [11, 9, 4]
+                  ]
+
       }
-      ];
+      
+    ];
+
+     
