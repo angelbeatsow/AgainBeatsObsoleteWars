@@ -124,6 +124,14 @@ window.onload= function(){
   
   
   const menuscene = ()=>{
+    //プレイヤーの職業レベルの初期値を追加で設定。内部で職業を増やしてもundifinedにならないように。
+    if(game.player.joblvs.length < jobs.length){
+      const dontSetJobMany = jobs.length - game.player.joblvs.length;
+      for(let n=0;n<dontSetJobMany;n++){
+        game.player.joblvs.push(1);
+      }
+    }
+  
     const textsize = 18;
     
     const scene = new MenuScene();
@@ -707,6 +715,10 @@ const puzzlescene = (stagenum)=>{
       }else if(_action[0] == 'ためる'){
         let plus = [ _action[1] ,_action[2] ,_action[3] ];
         scene.playerPlus.push(plus);
+      }
+      
+      if(action['change'] ){
+        scene.objs[0].change(action.change[0],action.change[1]);
       }
       
       //能力加算の経過ターンを反映
