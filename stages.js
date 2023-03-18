@@ -197,11 +197,11 @@ const stages = [
     {
       'name': 'Lv9:ヒール',
       'number': 10,
-      'info': '緑エレメントPow1.5倍回復。',
+      'info': '緑&ハートエレメントPow1倍回復。',
       'lv': 3, //needlv/3
       'need': ['green', 9],
       'func': function(elementstate) {
-        let pow = elementstate['green'][1] * 3/2;
+        let pow = elementstate['green'][1] + elementstate['pink'][1];
         return ['回復', pow];
       }
     },
