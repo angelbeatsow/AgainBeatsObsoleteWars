@@ -89,6 +89,42 @@ class Tilemap {
     
   }
   
+change(colorname,howmany){
+    //盤面の、ランダムなhowmany個のブロックをcolornameに変える。
+    const colornum = color.indexOf(colorname);
+    
+    //盤面の、colorname以外の色のブロックの座標一覧を生成。
+    let kouhozahyou = [];  //左上を[1,1]とする座標を入れる
+    for(let y1 = this.mapheight - 1;y1 > this.hiddenheight;y1--){
+      for(let x1=0;x1 < this.data[y1].length;x1++){
+        if(this.data[y1][x1] != colornum){
+          kouhozahyou.push([x1 + 1,y1 + 1]);
+        }
+      }
+    }
+    
+    //kouhozahyouからランダムにhowmany個取り出す。
+    let ketteizahyou = [];
+    for(let count=0;count<howmany;count++){
+      let kouhosuu = kouhozahyou.length;
+      if(kouhosuu <= 0)continue;
+      let tyuusen = random(0,kouhosuu-1);
+      ketteizahyou.push(kouhozahyou[tyuusen]);
+      kouhozahyou.splice(tyuusen,1);
+      
+    }
+    
+    //ketteizahyouのdataを変更。datatilesに反映。
+    for(let num=0;num<ketteizahyou.length;num++){
+      const _zahyou = ketteizahyou[num];
+      this.newdata[_zahyou[1] - 1][_zahyou[0] - 1] = colornum;
+      this.add(new Animationtile('disappearAnimation.png',_zahyou[0]-1,_zahyou[1]-1,4)); //アニメーション。重くなるならコメントアウト。
+    }
+    this.data = this.newdata;
+    this.datatilesSansyutu();
+    
+  }
+  
   
 
   update(canvas) {
