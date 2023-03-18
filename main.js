@@ -719,6 +719,16 @@ const puzzlescene = (stagenum)=>{
       
       if(action['change'] ){
         scene.objs[0].change(action.change[0],action.change[1]);
+        
+                    if (scene.objs[0].isTumi()) {
+
+                    scene.addlog('消せるブロックがないのでシャッフルします。/n');
+        
+                    while (scene.objs[0].isTumi()) {
+                      scene.objs[0].shuffle();
+        
+                    }
+                  }
       }
       
       //能力加算の経過ターンを反映
@@ -1132,7 +1142,7 @@ const puzzlescene = (stagenum)=>{
               
             //},1000/2);
             
-            scene.addlog('消せるブロックがないのでシャッフルします。/n');
+            this.addlog('消せるブロックがないのでシャッフルします。/n');
             
             while(this.objs[0].isTumi()){
               this.objs[0].shuffle();
