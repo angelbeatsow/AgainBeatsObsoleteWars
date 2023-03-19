@@ -14,7 +14,8 @@ const enemy = [
       'hp': 9,
       'pow': 8,
       'interval': 2,
-      'exp': 120
+      'exp': 120,
+      'weak'     :'yellow'
     },
     {
       'name': 'shadowC',
@@ -22,7 +23,8 @@ const enemy = [
       'hp': 25,
       'pow': 15,
       'interval': 3,
-      'exp': 150
+      'exp': 150,
+      'weak'     :'yellow'
     }
     
   ]
