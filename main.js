@@ -650,13 +650,16 @@ const puzzlescene = (stagenum)=>{
             }
             dame = dame * scene.playerx.pow * (100 + plus)/100 / 100;
           }
-        
+          let batugunMoji = '';
           if(scene.nowenemy[enemyindex]['weak']){
-            if(scene.nowenemy[enemyindex]['weak'].includes(_action[4]))dame = dame * 6/5;
+            if(scene.nowenemy[enemyindex]['weak'].includes(_action[4])){
+              dame = dame * 6/5;
+              batugunMoji = '効果抜群!';
+            }
           }
           dame = Math.floor(dame);
           scene.nowenemy[enemyindex]['hp'] = scene.nowenemy[enemyindex]['hp'] - dame;
-          scene.addlog ( scene.nowenemy[enemyindex].name + 'に' + dame + 'ダメージを与えた。/n' );
+          scene.addlog ( batugunMoji + scene.nowenemy[enemyindex].name + 'に' + dame + 'ダメージを与えた。/n' );
           setTimeout(()=>{
              if(scene.nowenemy[enemyindex]['hp'] <= 0){
                //倒した
