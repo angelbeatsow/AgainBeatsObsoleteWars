@@ -157,7 +157,7 @@ const stages = [
       'need': ['red', 9],
       'func': function(elementstate) {
         let pow = elementstate['red'][1] * 12/10;
-        return ['ダメージ', pow,'単体','物理','無'];
+        return ['ダメージ', pow,'単体','物理','red'];
       }
     },
     {
@@ -179,13 +179,13 @@ const stages = [
       'need': ['red', 12],
       'func': function(elementstate) {
         let pow = elementstate['red'][1] * 15 / 10;
-        return ['ダメージ', pow, '単体', '物理', '無'];
+        return ['ダメージ', pow, '単体', '物理', 'red'];
       }
     },
     {
       'name': 'Lv6:警戒の構え',
       'number': 9,
-      'info': '敵単体への、緑エレメントPow1倍物理攻撃(緑属性)。ブロックをランダムに3つ、ハートに変化させる。',
+      'info': '敵単体への、緑エレメントPow1倍物理攻撃。ブロックをランダムに3つ、ハートに変化させる。',
       'lv': 2, //needlv/3
       'need': ['green', 6],
       'func': function(elementstate) {
