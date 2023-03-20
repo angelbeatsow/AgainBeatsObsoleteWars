@@ -130,6 +130,8 @@ window.onload= function(){
         game.player.joblvs.push(1);
       }
     }
+    //古いバージョン用
+    if(game.player.clearstages == undefined)game.player.createZokusei('clearstages');
     
     
     const textsize = 18;
