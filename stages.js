@@ -143,11 +143,11 @@ const stages = [
     {
       'name': 'Lv6:身を守る',
       'number':5,
-      'info': 'このターンに受けるダメージを、ハートエレメントPow%軽減させる。',
+      'info': 'このターンに受けるダメージを、ハートエレメントPow1.5倍%軽減させる。',
       'lv': 2, //needlv/3
       'need': ['pink', 6],
       'func': function(elementstate) {
-        let pow = elementstate['pink'][1];
+        let pow = elementstate['pink'][1] * 3/2;
         return ['軽減', pow];
       }
     },
@@ -165,12 +165,12 @@ const stages = [
     {
       'name': 'Lv3:ためる',
       'number':7,
-      'info': '次のターンの物理攻撃力を、赤エレメントPow%上げる。',
+      'info': '3ターンの間、物理攻撃力を、赤エレメントPow%上げる。',
       'lv': 1, //needlv/3
       'need': ['red', 3],
       'func': function(elementstate) {
         let pow = elementstate['red'][1] ;
-        return ['ためる', pow, 1, '物理'];
+        return ['ためる', pow, 3, '物理'];
       }
     },
     {
