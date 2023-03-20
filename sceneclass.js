@@ -244,7 +244,7 @@ class PuzzleScene extends Scene{
     
 
     if(this.logpage < this.maxpage){
-      console.log('最後のページじゃない');
+      //console.log('最後のページじゃない');
       this.logpagechangeobjs[1].hidden = false;
     }
     
