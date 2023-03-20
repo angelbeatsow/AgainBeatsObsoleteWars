@@ -131,7 +131,8 @@ window.onload= function(){
       }
     }
     //古いバージョン用
-    if(game.player.clearstages == undefined)game.player.createZokusei('clearstages');
+    if(game.player.clearstages){}
+    else{game.player.createZokusei('clearstages');}
     
     
     const textsize = 18;
