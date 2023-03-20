@@ -36,7 +36,6 @@ window.onload= function(){
     scene.add( new Sprite('yellow.png',32*17,32));
     scene.add( new Sprite('pink.png',32*18,32));
     
-    
     scene.touchevent=()=>{
       if(game.touch.touchtype =='touchstart' &&
          hajimekara.isTouched(game.touch)[1] == true &&
@@ -131,7 +130,8 @@ window.onload= function(){
         game.player.joblvs.push(1);
       }
     }
-  
+    
+    
     const textsize = 18;
     
     const scene = new MenuScene();
@@ -288,7 +288,6 @@ window.onload= function(){
         }
       }
       scene.irekaeobjs.push(leftbutton);
-      //左下の説明文。
       const infotxt = new Text('',32 + 6,32*10 + 6,12);
       infotxt.max = 16;
       scene.elementinfotext.push(infotxt);
@@ -412,7 +411,7 @@ window.onload= function(){
         if(needOk){
           let textbun = jobs[jobnum].name;
           if(isAlreadyMaster){
-            textbun += ' (修得済)';
+            textbun += ' 【済】';
           }
           
           const _text = new Text(textbun,32*2,32*2 + 20 + 32*jobnum,20);
@@ -638,71 +637,92 @@ const puzzlescene = (stagenum)=>{
       
       let _action = action['func'](elementstate); //return[ダメージor回復,value,単体or全体,物理or魔法,属性]
       if(_action[0] == 'ダメージ'){
-        if(_action[2] == '単体'){
-          scene.enemyimgs[enemyindex].tenmetu = 1;
-          let dame = _action[1];
-          if(_action[3] == '物理'){
-            let plus = 0; //%値
-            for(let playerpluslength = 0;playerpluslength < scene.playerPlus.length;playerpluslength++){
-              if(scene.playerPlus[playerpluslength][2] == '物理' &&
-                 scene.playerPlus[playerpluslength][1] != 0){
-                plus += scene.playerPlus[playerpluslength][0];
+        if(_action[2] == '単体' || _action[2] == '全体'){
+          let firstnum = enemyindex;
+          let maxnum = enemyindex+1;
+          if(_action[2] == '全体'){
+            firstnum = 0;
+            maxnum = scene.enemyimgs.length;
+          }
+          
+          for(let t=firstnum;t<maxnum;t++){
+          
+          
+            scene.enemyimgs[t].tenmetu = 1;
+            let dame = _action[1];
+            if(_action[3] == '物理'){
+              let plus = 0; //%値
+              for(let playerpluslength = 0;playerpluslength < scene.playerPlus.length;playerpluslength++){
+                if(scene.playerPlus[playerpluslength][2] == '物理' &&
+                   scene.playerPlus[playerpluslength][1] != 0){
+                  plus += scene.playerPlus[playerpluslength][0];
+                }
+              }
+              dame = dame * scene.playerx.pow * (100 + plus)/100 / 100;
+            }else if(_action[3] == '魔法'){
+              let plus = 0; //%値
+              for (let playerpluslength = 0; playerpluslength < scene.playerPlus.length; playerpluslength++) {
+                if (scene.playerPlus[playerpluslength][2] == '魔法' &&
+                  scene.playerPlus[playerpluslength][1] != 0) {
+                  plus += scene.playerPlus[playerpluslength][0];
+                }
+              }
+              dame = dame * scene.playerx.mpow * (100 + plus) / 100 / 100;
+            }
+        
+            let batugunMoji = '';
+            if (scene.nowenemy[t]['weak']) {
+              if (scene.nowenemy[t]['weak'].includes(_action[4])) {
+                dame = dame * 6 / 5;
+                batugunMoji = '効果抜群!';
               }
             }
-            dame = dame * scene.playerx.pow * (100 + plus)/100 / 100;
-          }
-          let batugunMoji = '';
-          if(scene.nowenemy[enemyindex]['weak']){
-            if(scene.nowenemy[enemyindex]['weak'].includes(_action[4])){
-              dame = dame * 6/5;
-              batugunMoji = '効果抜群!';
-            }
-          }
-          dame = Math.floor(dame);
-          scene.nowenemy[enemyindex]['hp'] = scene.nowenemy[enemyindex]['hp'] - dame;
-          scene.addlog ( batugunMoji + scene.nowenemy[enemyindex].name + 'に' + dame + 'ダメージを与えた。/n' );
-          setTimeout(()=>{
-             if(scene.nowenemy[enemyindex]['hp'] <= 0){
-               //倒した
-               scene.enemyimgs[enemyindex].hidden     = true;
-               scene.intervaltexts[enemyindex].hidden = true;
-               scene.nokorienemy--;
-               let keikenti = Math.floor( scene.nowenemy[enemyindex]['exp'] / scene.playerx.lv * scene.nowenemy[enemyindex]['lv'] );
-               scene.playerx.exp += keikenti;
-               scene.addlog (scene.nowenemy[enemyindex].name + 'を倒した。 経験値を' + keikenti + '手に入れた。/n' );
-               if(scene.playerx.exp >= 100){
-                 //レベルアップ
-                 const _job = jobs[ scene.playerx.job ];
-                 while(scene.playerx.exp >=100){
-                   scene.playerx.exp -= 100;
+            dame = Math.floor(dame);
+            scene.nowenemy[t]['hp'] = scene.nowenemy[t]['hp'] - dame;
+            scene.addlog(batugunMoji + scene.nowenemy[t].name + 'に' + dame + 'ダメージを与えた。/n');
+            setTimeout(()=>{
+               if(scene.nowenemy[t]['hp'] <= 0){
+                 //倒した
+                 scene.enemyimgs[t].hidden     = true;
+                 scene.intervaltexts[t].hidden = true;
+                 scene.nokorienemy--;
+                 let keikenti = Math.floor( scene.nowenemy[t]['exp'] / scene.playerx.lv * scene.nowenemy[t]['lv'] );
+                 scene.playerx.exp += keikenti;
+                 scene.addlog (scene.nowenemy[t].name + 'を倒した。 経験値を' + keikenti + '手に入れた。/n' );
+                 if(scene.playerx.exp >= 100){
+                   //レベルアップ
+                   const _job = jobs[ scene.playerx.job ];
+                   while(scene.playerx.exp >=100){
+                     scene.playerx.exp -= 100;
                    
-                   scene.playerx.lv++;
-                   scene.playerx.joblv++;
-                   scene.playerx.joblvs[ scene.playerx.job ]++;
-                   scene.playerx.pow  += _job.pow;
-                   scene.playerx.mpow += _job.mpow;
-                   scene.playerx.hpow += _job.hpow;
-                   scene.playermaxhp  += _job.hp;
-                   scene.addlog ( 'レベルが上がった。 HP+' + _job.hp + ',攻撃力+' + _job.pow + ',魔法力+' + _job.mpow + ',回復力+' + _job.hpow + '/n' );
+                     scene.playerx.lv++;
+                     scene.playerx.joblv++;
+                     scene.playerx.joblvs[ scene.playerx.job ]++;
+                     scene.playerx.pow  += _job.pow;
+                     scene.playerx.mpow += _job.mpow;
+                     scene.playerx.hpow += _job.hpow;
+                     scene.playermaxhp  += _job.hp;
+                     scene.addlog ( 'レベルが上がった。 HP+' + _job.hp + ',攻撃力+' + _job.pow + ',魔法力+' + _job.mpow + ',回復力+' + _job.hpow + '/n' );
                    
-                   for(let x=0;x<_job.actions.length;x++){
-                     const _jobaction = _job.actions[x];
-                     if(_jobaction[1] == scene.playerx.joblv){
-                       scene.playerx.elements[ _jobaction[2] ].push(_jobaction[0]);
-                       scene.addlog ( 'エレメント「 ' + actions[ _jobaction[0] ].name + ' 」を獲得した。/n' );
-                     }
-                    }
-                    if (scene.playerx.joblv == 10) {
-                       scene.playerx.masterjobs.push(scene.playerx.job);
-                       scene.addlog ( jobs[scene.playerx.job].name + 'を修得した。/n' );
-                    }
+                     for(let x=0;x<_job.actions.length;x++){
+                       const _jobaction = _job.actions[x];
+                       if(_jobaction[1] == scene.playerx.joblv){
+                         scene.playerx.elements[ _jobaction[2] ].push(_jobaction[0]);
+                         scene.addlog ( 'エレメント「 ' + actions[ _jobaction[0] ].name + ' 」を獲得した。/n' );
+                       }
+                      }
+                      if (scene.playerx.joblv == 10) {
+                         scene.playerx.masterjobs.push(scene.playerx.job);
+                         scene.addlog ( jobs[scene.playerx.job].name + 'を修得した。/n' );
+                      }
                    
-                 }
+                   }
                
+                 }
                }
-             }
-             scene.enemyimgs[enemyindex].tenmetu = 0;
-          },myturnTime);
+               scene.enemyimgs[t].tenmetu = 0;
+            },myturnTime + t);
+          }
         }
       }else if(_action[0] == '回復'){
         let _value = _action[1];
@@ -721,10 +741,11 @@ const puzzlescene = (stagenum)=>{
         scene.playerPlus.push(plus);
       }
       
+      
       if(action['change'] ){
         scene.objs[0].change(action.change[0],action.change[1]);
         
-                    if (scene.objs[0].isTumi()) {
+                  if (scene.objs[0].isTumi()) {
 
                     scene.addlog('消せるブロックがないのでシャッフルします。/n');
         
@@ -813,7 +834,34 @@ const puzzlescene = (stagenum)=>{
           scene.nowflag = 5;
           scene.tyutoriaruobjs[0].text = '階層制覇時は、「進む」か回復エレメントを、2回押すことで選択できます。';
           if(scene.wave == scene.stage.wave){
-            scene.addlog ( 'ステージを制覇した。「 進む 」でメニュー画面に戻ります。/n' );
+            let increaseBun = 'ステージを制覇した。';
+            
+            //なぜかメソッドが使えないのでここに関数を記述。
+            function stageclear(stagenum){
+              if (scene.playerx.clearstages.includes(stagenum)) {
+                return false;
+              } else {
+                scene.playerx.clearstages.push(stagenum);
+              }
+              if (scene.playerx.settingElements[stagenum % 5 + 1].length >= 6) return false;
+            
+              increaseSetableElement( (stagenum - 1) % 5 + 1);
+              return true;
+              
+              function increaseSetableElement(elementlv, howmany = 1){ //elementlv は needlv/3
+                for (let x = 0; x < howmany; x++) {
+                  scene.playerx.maxSetableAtElementLv[elementlv]++;
+                  scene.playerx.settingElements[elementlv].push(0);
+                }
+              }
+            }
+            
+            
+            const isIncreaseSetableElement = stageclear(_stagenum);  //メソッドが使えるならscene.playerx.stageclear(_stagenum)にする。
+            if(isIncreaseSetableElement == true){//エレメントセット数が増えるならtrue
+              increaseBun = 'ステージを初制覇し、セットできるエレメントが増えた。'
+            }
+            scene.addlog ( + increaseBun + '「 進む 」でメニュー画面に戻ります。/n' );
           }else{
             scene.addlog ( '階層を制覇した。「 進む 」か回復エレメントが使えます。/n' );
           }
