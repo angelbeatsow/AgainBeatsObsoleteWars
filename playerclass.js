@@ -31,17 +31,30 @@ class Player {
                             [0],
                             [0]
                            ];
-    
+    /*
     this.increaseSetableElement(1,3);
     this.increaseSetableElement(2,2);
     this.increaseSetableElement(3,1);
     this.increaseSetableElement(4,1);
+    */
   }
   
-  increaseSetableElement(elementlv,howmany=1){ //elementlv は needlv/3
+  increaseSetableElement = (elementlv,howmany=1)=>{ //elementlv は needlv/3
     for(let x=0;x<howmany;x++){
       this.maxSetableAtElementLv[elementlv]++;
       this.settingElements[elementlv].push(0);
     }
-  }
+  };
+  
+  stageclear = (stagenum)=>{
+    if(this.clearstages.includes(stagenum)){
+      return false;
+    }else{
+      this.clearstages.push(stagenum);
+    }
+    if(this.settingElements[(stagenum-1) % 5 + 1].length >= 6)return false;
+
+    this.increaseSetableElement((stagenum-1) % 5 + 1);
+    return true;
+  };
 }
