@@ -222,36 +222,36 @@ const stages = [
     {
       'name': 'Lv3:閃光弾',
       'number': 12,
-      'info': '敵全体への、黄エレメントPow0.3~0.5倍魔法攻撃。',
+      'info': '敵全体への、黄エレメントPow0.2~0.4倍魔法攻撃。',
       'lv': 1, //needlv/3
       'need': ['yellow', 3],
       'func': function(elementstate) {
-        let pow = elementstate['yellow'][1] * random(3,5)/10;
+        let pow = elementstate['yellow'][1] * random(20,40)/100;
         return ['ダメージ', pow, '全体', '魔法', 'yellow'];
       }
     },
     {
       'name': 'Lv6:閃光剣',
       'number': 13,
-      'info': '敵単体への、黄エレメントPow0.8~1.2倍魔法攻撃。',
+      'info': '敵単体への、黄エレメントPow0.6~1.2倍魔法攻撃。',
       'lv': 2, //needlv/3
       'need': ['yellow', 6],
       'func': function(elementstate) {
-        let pow = elementstate['yellow'][1] * random(8,12)/ 10;
+        let pow = elementstate['yellow'][1] * random(60,120)/ 100;
         return ['ダメージ', pow, '単体', '魔法', 'yellow'];
       }
     },
     {
       'name': 'Lv9:閃光波',
       'number': 14,
-      'info': 'ブロックをランダムに9つ、黄に変化させる。',
+      'info': 'ブロックをランダムに5~9つ、黄に変化させる。',
       'lv': 3, //needlv/3
       'need': ['yellow', 9],
       'func': function(elementstate) {
         let pow = 0;
         return ['軽減', pow];
       },
-      'change':['yellow',9]
+      'change':['yellow',random(5,9)]
     },
     
     
