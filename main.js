@@ -288,8 +288,9 @@ window.onload= function(){
         }
       }
       scene.irekaeobjs.push(leftbutton);
-      const infotxt = new Text('',32 + 6,32*10 + 6,16);
-      infotxt.max = 12;
+      //左下の説明文。
+      const infotxt = new Text('',32 + 6,32*10 + 6,12);
+      infotxt.max = 16;
       scene.elementinfotext.push(infotxt);
       
       
