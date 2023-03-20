@@ -203,7 +203,7 @@ const stages = [
       'lv': 3, //needlv/3
       'need': ['green', 9],
       'func': function(elementstate) {
-        let pow = elementstate['green'][1] + elementstate['pink'][1];
+        let pow = elementstate['green'][1] + elementatate['pink'][1];
         return ['回復', pow];
       }
     },
@@ -219,11 +219,43 @@ const stages = [
       },
       'change':['pink',5]
     },
+    {
+      'name': 'Lv3:閃光弾',
+      'number': 12,
+      'info': '敵全体への、黄エレメントPow0.3~0.5倍魔法攻撃。',
+      'lv': 1, //needlv/3
+      'need': ['yellow', 3],
+      'func': function(elementstate) {
+        let pow = elementstate['yellow'][1] * random(3,5)/10;
+        return ['ダメージ', pow, '全体', '魔法', 'yellow'];
+      }
+    },
+    {
+      'name': 'Lv6:閃光剣',
+      'number': 13,
+      'info': '敵単体への、黄エレメントPow0.8~1.2倍魔法攻撃。',
+      'lv': 2, //needlv/3
+      'need': ['yellow', 6],
+      'func': function(elementstate) {
+        let pow = elementstate['yellow'][1] * random(8,12)/ 10;
+        return ['ダメージ', pow, '単体', '魔法', 'yellow'];
+      }
+    },
+    {
+      'name': 'Lv9:閃光波',
+      'number': 14,
+      'info': 'ブロックをランダムに9つ、黄に変化させる。',
+      'lv': 3, //needlv/3
+      'need': ['yellow', 9],
+      'func': function(elementstate) {
+        let pow = 0;
+        return ['軽減', pow];
+      },
+      'change':['yellow',9]
+    },
     
     
     ];
-    
-    
     
     const jobs = [
       {
@@ -240,7 +272,7 @@ const stages = [
         
       },
       {
-        'name':'戦士',
+        'name':'戦闘員',
         'need':[0],
         'hp'  :5,
         'pow' :5,
@@ -254,7 +286,7 @@ const stages = [
         
       },
       {
-        'name': '治療師',
+        'name': '治療班',
         'need': [0],
         'hp': 4,
         'pow': 2,
@@ -266,8 +298,20 @@ const stages = [
                    [11, 9, 4]
                   ]
 
+      },
+      {
+        'name': '技術班',
+        'need': [0],
+        'hp': 2,
+        'pow': 2,
+        'mpow': 4,
+        'hpow': 2,
+        'actions': [
+                   [12, 3, 1], //[覚えるaction,覚えられるjoblv,エレメントレベル = needlv/3]
+                   [13, 6, 2],
+                   [14, 9, 3]
+                  ]
+
       }
       
     ];
-
-     
