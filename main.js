@@ -76,7 +76,8 @@ window.onload= function(){
            getReq.onsuccess = function(event) {
              if (event.target.result) {
                let data = event.target.result['data']; // {id : 'A', data : []}
-               game.player = Object.assign({}, JSON.parse(JSON.stringify(data)));
+               const playerdata = Object.assign({}, JSON.parse(JSON.stringify(data)));
+               game.player = Object.assign(new Player, playerdata);
          
                db.close();
          
@@ -130,9 +131,7 @@ window.onload= function(){
         game.player.joblvs.push(1);
       }
     }
-    //古いバージョン用
-    if(game.player.clearstages){}
-    else{game.player.createZokusei('clearstages');}
+    
     
     
     const textsize = 18;
