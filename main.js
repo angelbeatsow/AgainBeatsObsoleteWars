@@ -863,7 +863,7 @@ const puzzlescene = (stagenum)=>{
             if(isIncreaseSetableElement == true){//エレメントセット数が増えるならtrue
               increaseBun = 'ステージを初制覇し、セットできるエレメントが増えた。'
             }
-            scene.addlog ( + increaseBun + '「 進む 」でメニュー画面に戻ります。/n' );
+            scene.addlog ( increaseBun + '「 進む 」でメニュー画面に戻ります。/n' );
           }else{
             scene.addlog ( '階層を制覇した。「 進む 」か回復エレメントが使えます。/n' );
           }
