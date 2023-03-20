@@ -709,8 +709,10 @@ const puzzlescene = (stagenum)=>{
                      for(let x=0;x<_job.actions.length;x++){
                        const _jobaction = _job.actions[x];
                        if(_jobaction[1] == scene.playerx.joblv){
-                         scene.playerx.elements[ _jobaction[2] ].push(_jobaction[0]);
-                         scene.addlog ( 'エレメント「 ' + actions[ _jobaction[0] ].name + ' 」を獲得した。/n' );
+                         if(scene.playerx.elements[ _jobaction[2]].includes( _jobaction[0]) == false){ //獲得するエレメントを持っていないなら
+                           scene.playerx.elements[ _jobaction[2] ].push(_jobaction[0]);
+                           scene.addlog ( 'エレメント「 ' + actions[ _jobaction[0] ].name + ' 」を獲得した。/n' );
+                         }
                        }
                       }
                       if (scene.playerx.joblv == 10) {
