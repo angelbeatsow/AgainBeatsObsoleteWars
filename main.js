@@ -845,7 +845,7 @@ const puzzlescene = (stagenum)=>{
               } else {
                 scene.playerx.clearstages.push(stagenum);
               }
-              if (scene.playerx.settingElements[ (stagenum - 1) % 5 + 1].length >= 6) return false;
+              if (scene.playerx.settingElements[ (stagenum - 1) % 5 + 1].length >= 5) return false;
             
               increaseSetableElement( (stagenum - 1) % 5 + 1);
               return true;
