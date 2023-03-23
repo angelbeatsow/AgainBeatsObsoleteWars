@@ -76,8 +76,7 @@ window.onload= function(){
            getReq.onsuccess = function(event) {
              if (event.target.result) {
                let data = event.target.result['data']; // {id : 'A', data : []}
-               const playerdata = Object.assign({}, JSON.parse(JSON.stringify(data)));
-               game.player = Object.assign(new Player, playerdata);
+               game.player = Object.assign({}, JSON.parse(JSON.stringify(data)));
          
                db.close();
          
@@ -131,7 +130,6 @@ window.onload= function(){
         game.player.joblvs.push(1);
       }
     }
-    
     
     
     const textsize = 18;
@@ -528,8 +526,8 @@ const puzzlescene = (stagenum)=>{
   let _stagenum = stagenum;  //1~
   
   const scene = new PuzzleScene(_stagenum);
-  scene.player  = Object.assign({}, JSON.parse(JSON.stringify(game.player)));
-  scene.playerx = Object.assign({}, JSON.parse(JSON.stringify(game.player)));
+  scene.player  = Object.assign(new Player, JSON.parse(JSON.stringify(game.player)));
+  scene.playerx = Object.assign(new Player, JSON.parse(JSON.stringify(game.player)));
   scene.playermaxhp   = scene.player.hp;
   
   
@@ -709,6 +707,7 @@ const puzzlescene = (stagenum)=>{
                      for(let x=0;x<_job.actions.length;x++){
                        const _jobaction = _job.actions[x];
                        if(_jobaction[1] == scene.playerx.joblv){
+                         
                          if(scene.playerx.elements[ _jobaction[2]].includes( _jobaction[0]) == false){ //獲得するエレメントを持っていないなら
                            scene.playerx.elements[ _jobaction[2] ].push(_jobaction[0]);
                            scene.addlog ( 'エレメント「 ' + actions[ _jobaction[0] ].name + ' 」を獲得した。/n' );
@@ -774,13 +773,15 @@ const puzzlescene = (stagenum)=>{
         
         
         for(let num=0;num<scene.nowenemy.length;num++){
-          if(scene.nowenemy[num]['hp'] <= 0)continue;
-          if(scene.playerx.hp == 0)continue;
+          if(scene.nowenemy[num]['hp'] <= 0)continue;  //この敵のhpが0の場合continue
+          if(scene.playerx.hp == 0)continue;           //プレイヤーのhpが0の場合continue
           
+          //インターバルカウントを減らして反映する
           scene.nowenemy[num]['interval']--;
           scene.intervaltexts[num].text = scene.nowenemy[num].interval;
           
           if(scene.nowenemy[num]['interval'] <= 0){ //敵の攻撃
+          　//インターバルカウントを戻す
             scene.nowenemy[num]['interval'] = scene.enemy[ scene.wave -1 ][num]['interval'];
             setTimeout(() => {
               scene.intervaltexts[num].text = scene.nowenemy[num].interval;
@@ -788,12 +789,47 @@ const puzzlescene = (stagenum)=>{
             
             scene.enemyimgs[num].vy = -2;
             
-            //ダメージの計算
-            let _dame = scene.nowenemy[num]['pow'];
-            if(keigenPow > 100)keigenPow = 100;
-            _dame = Math.floor( _dame * (100 - keigenPow) / 100);
-            scene.playerx.hp = scene.playerx.hp -  _dame ;
-            scene.addlog ( scene.nowenemy[num].name + 'の攻撃。' + _dame + 'ダメージを受けた。/n' );
+            //koudounumを取得。増やす。
+            const koudounum = scene.nowenemy[num].koudounum;
+            scene.nowenemy[num].koudounum++;
+            if(koudounum + 1 >= scene.nowenemy[num].koudounumlength)scene.nowenemy[num].koudounum = 0;
+            
+            //確率から行動を決定。
+            const _enemyKoudou = scene.nowenemy[num].koudou[koudounum]; //[確率],[行動],...
+            const kakuritu = random(1,100);
+            let kakuritukekka;
+            for(let kakuritubunki = 0;kakuritubunki < _enemyKoudou[0].length;kakuritubunki++){
+              let border = 1;
+              if(kakuritubunki >=1)border = _enemyKoudou[0][kakuritubunki - 1] + 1;
+              let upborder = _enemyKoudou[0][kakuritubunki];
+              if(kakuritu >= border && kakuritu <= upborder)kakuritukekka = kakuritubunki + 1;
+            }
+            
+            const desidedEnemyKoudou = _enemyKoudou[kakuritukekka];
+            
+            if(desidedEnemyKoudou[0] == '攻撃'){
+            
+              //ダメージの計算
+              let _dame = scene.nowenemy[num]['pow'];
+              if(keigenPow > 100)keigenPow = 100;
+              _dame = Math.floor( _dame * (100 - keigenPow) / 100);
+              scene.playerx.hp = scene.playerx.hp -  _dame ;
+              scene.addlog ( scene.nowenemy[num].name + 'の攻撃。' + _dame + 'ダメージを受けた。/n' );
+            }
+            else if (desidedEnemyKoudou[0] == '連撃') {
+
+              //ダメージの計算
+              let _dame = scene.nowenemy[num]['pow'];
+              if (keigenPow > 100) keigenPow = 100;
+              _dame = Math.floor(_dame * (100 - keigenPow) / 100);
+              scene.playerx.hp = scene.playerx.hp - _dame * 2;
+              scene.addlog(scene.nowenemy[num].name + 'の連撃。' + _dame + 'ダメージを受けた。' + _dame + 'ダメージを受けた。/n');
+            }
+            else if(desidedEnemyKoudou[0] == 'うんこ'){
+              scene.addlog( scene.nowenemy[num].name + 'はうんこした。');
+              
+            }
+            //行動ここまで
             
             
             if(scene.playerx.hp < 0){
@@ -841,13 +877,16 @@ const puzzlescene = (stagenum)=>{
             let increaseBun = 'ステージを制覇した。';
             
             //なぜかメソッドが使えないのでここに関数を記述。
+            //new Player に assign したら使えた。
+            /*
+            
             function stageclear(stagenum){
               if (scene.playerx.clearstages.includes(stagenum)) {
                 return false;
               } else {
                 scene.playerx.clearstages.push(stagenum);
               }
-              if (scene.playerx.settingElements[ (stagenum - 1) % 5 + 1].length >= 5) return false;
+              if (scene.playerx.settingElements[stagenum % 5 + 1].length >= 6) return false;
             
               increaseSetableElement( (stagenum - 1) % 5 + 1);
               return true;
@@ -858,14 +897,15 @@ const puzzlescene = (stagenum)=>{
                   scene.playerx.settingElements[elementlv].push(0);
                 }
               }
-            }
+            }  */
             
             
-            const isIncreaseSetableElement = stageclear(_stagenum);  //メソッドが使えるならscene.playerx.stageclear(_stagenum)にする。
+            
+            const isIncreaseSetableElement = scene.playerx.stageclear(_stagenum);  //メソッドが使えるならscene.playerx.stageclear(_stagenum)にする。
             if(isIncreaseSetableElement == true){//エレメントセット数が増えるならtrue
               increaseBun = 'ステージを初制覇し、セットできるエレメントが増えた。'
             }
-            scene.addlog ( increaseBun + '「 進む 」でメニュー画面に戻ります。/n' );
+            scene.addlog (  increaseBun + '「 進む 」でメニュー画面に戻ります。/n' );
           }else{
             scene.addlog ( '階層を制覇した。「 進む 」か回復エレメントが使えます。/n' );
           }
