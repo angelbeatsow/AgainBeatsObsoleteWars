@@ -55,7 +55,7 @@ class Player {
     }else{
       this.clearstages.push(stagenum);
     }
-    if(this.settingElements[(stagenum-1) % 5 + 1].length >= 6)return false;
+    if(this.settingElements[(stagenum-1) % 5 + 1].length >= 5)return false;
 
     this.increaseSetableElement((stagenum-1) % 5 + 1);
     return true;
