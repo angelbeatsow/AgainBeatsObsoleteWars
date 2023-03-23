@@ -6,7 +6,10 @@ const enemy = [
       'pow'      : 2,
       'interval' : 1,
       'exp'      : 100,
-      'weak'     :'yellow'
+      'weak'     :'yellow',
+      'koudou'   :[
+                    [ [90,100],['攻撃'],['うんこ'] ]  //[確率][行動]
+                  ]
     },
     {
       'name': 'shadowB',
@@ -15,7 +18,10 @@ const enemy = [
       'pow': 8,
       'interval': 2,
       'exp': 120,
-      'weak'     :'yellow'
+      'weak'     :'yellow',
+      'koudou'   :[
+                    [ [100],['攻撃'] ]
+                  ]
     },
     {
       'name': 'shadowC',
@@ -24,7 +30,10 @@ const enemy = [
       'pow': 15,
       'interval': 3,
       'exp': 150,
-      'weak'     :'yellow'
+      'weak'     :'yellow',
+      'koudou'   :[
+                    [ [70,100],['攻撃'],['連撃'] ]
+                  ]
     }
     
   ]
@@ -44,7 +53,9 @@ class Enemy {
       this.exp      = Math.floor( ene.exp * (10 + lv)/10 );
       this.weak;
       if(ene.weak)this.weak = ene.weak;
-      
+      this.koudou          = ene.koudou; 
+      this.koudounumlength = ene.koudou.length ;
+      this.koudounum       = 0;
       
     }
     
@@ -143,11 +154,11 @@ const stages = [
     {
       'name': 'Lv6:身を守る',
       'number':5,
-      'info': 'このターンに受けるダメージを、ハートエレメントPow1.5倍%軽減させる。',
+      'info': 'このターンに受けるダメージを、ハートエレメントPow%軽減させる。',
       'lv': 2, //needlv/3
       'need': ['pink', 6],
       'func': function(elementstate) {
-        let pow = elementstate['pink'][1] * 3/2;
+        let pow = elementstate['pink'][1];
         return ['軽減', pow];
       }
     },
@@ -165,12 +176,12 @@ const stages = [
     {
       'name': 'Lv3:ためる',
       'number':7,
-      'info': '3ターンの間、物理攻撃力を、赤エレメントPow%上げる。',
+      'info': '次のターンの物理攻撃力を、赤エレメントPow%上げる。',
       'lv': 1, //needlv/3
       'need': ['red', 3],
       'func': function(elementstate) {
         let pow = elementstate['red'][1] ;
-        return ['ためる', pow, 3, '物理'];
+        return ['ためる', pow, 1, '物理'];
       }
     },
     {
@@ -222,36 +233,36 @@ const stages = [
     {
       'name': 'Lv3:閃光弾',
       'number': 12,
-      'info': '敵全体への、黄エレメントPow0.2~0.4倍魔法攻撃。',
+      'info': '敵全体への、黄エレメントPow0.3~0.5倍魔法攻撃。',
       'lv': 1, //needlv/3
       'need': ['yellow', 3],
       'func': function(elementstate) {
-        let pow = elementstate['yellow'][1] * random(20,40)/100;
+        let pow = elementstate['yellow'][1] * random(3,5)/10;
         return ['ダメージ', pow, '全体', '魔法', 'yellow'];
       }
     },
     {
       'name': 'Lv6:閃光剣',
       'number': 13,
-      'info': '敵単体への、黄エレメントPow0.6~1.2倍魔法攻撃。',
+      'info': '敵単体への、黄エレメントPow0.8~1.2倍魔法攻撃。',
       'lv': 2, //needlv/3
       'need': ['yellow', 6],
       'func': function(elementstate) {
-        let pow = elementstate['yellow'][1] * random(60,120)/ 100;
+        let pow = elementstate['yellow'][1] * random(8,12)/ 10;
         return ['ダメージ', pow, '単体', '魔法', 'yellow'];
       }
     },
     {
       'name': 'Lv9:閃光波',
       'number': 14,
-      'info': 'ブロックをランダムに5~9つ、黄に変化させる。',
+      'info': 'ブロックをランダムに9つ、黄に変化させる。',
       'lv': 3, //needlv/3
       'need': ['yellow', 9],
       'func': function(elementstate) {
         let pow = 0;
         return ['軽減', pow];
       },
-      'change':['yellow',random(5,9)]
+      'change':['yellow',9]
     },
     
     
@@ -267,7 +278,7 @@ const stages = [
         'hpow':2,
         'actions':[
                    [4,3,1],  //[覚えるaction,覚えられるjoblv,エレメントレベル = needlv/3]
-                   [5,7,2]
+                   [5,6,2]
                   ]
         
       },
