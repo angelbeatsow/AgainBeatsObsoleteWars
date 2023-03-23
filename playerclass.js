@@ -31,7 +31,9 @@ class Player {
                             [0],
                             [0]
                            ];
+    
     this.clearstages = [];  //stagenumを入れる。
+    
     /*
     this.increaseSetableElement(1,3);
     this.increaseSetableElement(2,2);
@@ -58,8 +60,4 @@ class Player {
     this.increaseSetableElement((stagenum-1) % 5 + 1);
     return true;
   };
-  
-  createZokusei(name){
-    if(name == 'clearstages')this.clearstages = [];  //stagenumを入れる。
-  }
 }
