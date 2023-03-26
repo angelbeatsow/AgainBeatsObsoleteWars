@@ -154,11 +154,11 @@ const stages = [
     {
       'name': 'Lv6:身を守る',
       'number':5,
-      'info': 'このターンに受けるダメージを、ハートエレメントPow%軽減させる。',
+      'info': 'このターンに受けるダメージを、ハートエレメントPow1.5倍%軽減させる。',
       'lv': 2, //needlv/3
       'need': ['pink', 6],
       'func': function(elementstate) {
-        let pow = elementstate['pink'][1];
+        let pow = elementstate['pink'][1] * 3/2;
         return ['軽減', pow];
       }
     },
