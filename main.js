@@ -1019,9 +1019,11 @@ const puzzlescene = (stagenum)=>{
                   scene.actioninfotext[0].text = element.info;
                   if(scene.nowflag == 3 ){
                     if(element.need[0] == 0 || scene.elementstate[ element.need[0] ][0] >= element.need[1]){
-                      console.log(_text.text + ' 選択中');
-                      _text.tenmetu = 1;
-                      scene.action = element;
+                      if(_text.tenmetu == 0){
+                        console.log(_text.text + ' 選択中');
+                        _text.tenmetu = 1;
+                        scene.action = element;
+                      }
                     }
                   }
                   if(scene.nowflag == 5){
